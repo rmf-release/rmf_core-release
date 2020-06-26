@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.5.0)
 
 project(rmf_fleet_adapter)
 
-set(CMAKE_C_COMPILER gcc-8)
 set(CMAKE_CXX_COMPILER g++-8)
 
 if (NOT CMAKE_CXX_STANDARD)
