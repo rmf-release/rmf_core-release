@@ -1,8 +1,0 @@
-ros-eloquent-rmf-workcell-msgs (1.0.0-1bionic) bionic; urgency=high
-
-  * Initial set of messages for communicating with robot workcells over ROS2
-  * Contributors: Aaron Chong
-
- -- Aaron Chong <aaron@openrobotics.org>  Tue, 23 Jun 2020 00:00:00 -0000
-
-
