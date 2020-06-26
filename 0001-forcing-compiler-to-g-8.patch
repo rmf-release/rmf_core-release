@@ -1,7 +1,7 @@
-From a405bb545cd86434c6b0d5c18604d39dd013e2e6 Mon Sep 17 00:00:00 2001
+From 8813d682060b2cb0abced112951354278fc71b21 Mon Sep 17 00:00:00 2001
 From: "Marco A. Gutierrez" <marcogg@marcogg.com>
 Date: Fri, 26 Jun 2020 10:35:42 +0000
-Subject: [PATCH] forcing compiler to g++-8
+Subject: [PATCH 1/2] forcing compiler to g++-8
 
 ---
  CMakeLists.txt | 2 ++

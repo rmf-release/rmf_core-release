@@ -1,0 +1,24 @@
+From 0c04fef1e60a2d3791b563cab2913840aba94c58 Mon Sep 17 00:00:00 2001
+From: "Marco A. Gutierrez" <marcogg@marcogg.com>
+Date: Fri, 26 Jun 2020 10:49:49 +0000
+Subject: [PATCH 2/2] force to use gcc 8
+
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f26cc47..9d6a6d6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.5.0)
+ 
+ project(rmf_fleet_adapter)
+ 
++set(CMAKE_C_COMPILER gcc-8)
+ set(CMAKE_CXX_COMPILER g++-8)
+ 
+ if (NOT CMAKE_CXX_STANDARD)
+-- 
+2.17.1
+
