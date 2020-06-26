@@ -1,0 +1,12 @@
+Source: ros-eloquent-ament-cmake-catch2
+Section: misc
+Priority: optional
+Maintainer: Luca Della Vedova <luca@osrfoundation.org>
+Build-Depends: debhelper (>= 9.0.0), ros-eloquent-ament-cmake-core, ros-eloquent-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-eloquent-ament-cmake-catch2
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-eloquent-ament-cmake-test, ros-eloquent-ros-workspace
+Description: Allows integrating catch2 tests in the ament buildsystem with CMake
