@@ -1,0 +1,25 @@
+From a405bb545cd86434c6b0d5c18604d39dd013e2e6 Mon Sep 17 00:00:00 2001
+From: "Marco A. Gutierrez" <marcogg@marcogg.com>
+Date: Fri, 26 Jun 2020 10:35:42 +0000
+Subject: [PATCH] forcing compiler to g++-8
+
+---
+ CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2854f8b..f26cc47 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5.0)
+ 
+ project(rmf_fleet_adapter)
+ 
++set(CMAKE_CXX_COMPILER g++-8)
++
+ if (NOT CMAKE_CXX_STANDARD)
+   set(CMAKE_CXX_STANDARD 14)
+ endif()
+-- 
+2.17.1
+
