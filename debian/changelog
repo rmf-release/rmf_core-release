@@ -1,0 +1,8 @@
+ros-eloquent-rmf-traffic-msgs (1.0.0-1bionic) bionic; urgency=high
+
+  * Messages for transmitting rmf_traffic API data structures over ROS2
+  * Contributors: Aaron Chong, Grey, Marco A. Gutiérrez, Morgan Quigley, Yadu, koonpeng
+
+ -- Grey <grey@openrobotics.org>  Tue, 23 Jun 2020 00:00:00 -0000
+
+
