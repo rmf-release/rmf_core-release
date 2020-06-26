@@ -1,8 +1,0 @@
-ros-eloquent-rmf-lift-msgs (1.0.0-1bionic) bionic; urgency=high
-
-  * Initial set of messages for communicating with lifts over ROS2
-  * Contributors: Grey, Marco A. Gutiérrez, Michael X. Grey, Morgan Quigley
-
- -- Morgan Quigley <mquigley@openrobotics.org>  Tue, 23 Jun 2020 00:00:00 -0000
-
-
