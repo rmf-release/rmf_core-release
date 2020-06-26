@@ -1,0 +1,8 @@
+ros-eloquent-ament-cmake-catch2 (1.0.0-6bionic) bionic; urgency=high
+
+  * A package to allow integration of catch2 tests in the ament buildsystem with CMake
+  * Contributors: Luca Della Vedova
+
+ -- Luca Della Vedova <luca@osrfoundation.org>  Tue, 23 Jun 2020 00:00:00 -0000
+
+
