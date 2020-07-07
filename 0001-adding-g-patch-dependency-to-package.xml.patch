@@ -1,7 +1,7 @@
-From 15c5ff407ac6575ba80646f3a8ccd9b0c02587e4 Mon Sep 17 00:00:00 2001
+From 433d9a44d677272ab171859c6518147441a81a12 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Marco=20A=2E=20Guti=C3=A9rrez?= <marco@openrobotics.org>
 Date: Mon, 6 Jul 2020 14:47:47 +0800
-Subject: [PATCH] adding g++ patch dependency to package.xml
+Subject: [PATCH 1/2] adding g++ patch dependency to package.xml
 
 ---
  package.xml | 1 +
