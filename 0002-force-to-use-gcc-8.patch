@@ -1,4 +1,4 @@
-From 247615af69517e109a25a399075cd099c4d1d229 Mon Sep 17 00:00:00 2001
+From 4afdb054607541bc583eebbe05cf7365b6fee07b Mon Sep 17 00:00:00 2001
 From: "Marco A. Gutierrez" <marcogg@marcogg.com>
 Date: Fri, 26 Jun 2020 10:49:49 +0000
 Subject: [PATCH 2/3] force to use gcc 8
