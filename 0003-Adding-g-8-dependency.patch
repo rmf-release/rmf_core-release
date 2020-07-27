@@ -1,4 +1,4 @@
-From c7e86a005cc393da520ed01a474fd10295d54485 Mon Sep 17 00:00:00 2001
+From 32da573bd7913e68338b1623aa92afc03689c49f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Marco=20A=2E=20Guti=C3=A9rrez?= <marco@openrobotics.org>
 Date: Tue, 7 Jul 2020 10:32:35 +0800
 Subject: [PATCH 3/3] Adding g++-8 dependency
@@ -8,7 +8,7 @@ Subject: [PATCH 3/3] Adding g++-8 dependency
  1 file changed, 1 insertion(+)
 
 diff --git a/package.xml b/package.xml
-index 56b5311..518ad22 100644
+index 0999cab..f2b3277 100644
 --- a/package.xml
 +++ b/package.xml
 @@ -9,6 +9,7 @@
