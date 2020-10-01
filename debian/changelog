@@ -1,0 +1,14 @@
+ros-foxy-rmf-task-msgs (1.1.0-2focal) focal; urgency=high
+
+  * Add Ingestor Messages (#164 <https://github.com/osrf/rmf_core/issues/164>)
+
+ -- Morgan Quigley <morgan@openrobotics.org>  Thu, 24 Sep 2020 00:00:00 -0000
+
+ros-foxy-rmf-task-msgs (1.0.0-2focal) focal; urgency=high
+
+  * Initial set of messages for describing task requests and results over ROS2
+  * Contributors: Grey, Marco A. Gutiérrez, Michael X. Grey, Morgan Quigley
+
+ -- Morgan Quigley <morgan@openrobotics.org>  Tue, 23 Jun 2020 00:00:00 -0000
+
+
