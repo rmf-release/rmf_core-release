@@ -1,3 +1,40 @@
+## rmf_core (rolling) - 1.9999.0-1
+
+The packages in the `rmf_core` repository were released into the `rolling` distro by running `/usr/local/bin/bloom-release --rosdistro rolling --track rolling rmf_core` on `Wed, 02 Dec 2020 08:45:03 -0000`
+
+These packages were released:
+- `ament_cmake_catch2`
+- `rmf_cmake_uncrustify`
+- `rmf_dispenser_msgs`
+- `rmf_door_msgs`
+- `rmf_fleet_adapter`
+- `rmf_fleet_msgs`
+- `rmf_ingestor_msgs`
+- `rmf_lift_msgs`
+- `rmf_task_msgs`
+- `rmf_traffic`
+- `rmf_traffic_msgs`
+- `rmf_traffic_ros2`
+- `rmf_utils`
+- `rmf_workcell_msgs`
+
+Version of package(s) in repository `rmf_core`:
+
+- upstream repository: https://github.com/osrf/rmf_core.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `1.9999.0-1`
+
+Versions of tools used:
+
+- bloom version: `0.10.0`
+- catkin_pkg version: `0.4.23`
+- rosdep version: `0.19.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## rmf_core (foxy) - 1.1.0-2
 
 The packages in the `rmf_core` repository were released into the `foxy` distro by running `/usr/bin/bloom-release rmf_core --rosdistro foxy` on `Thu, 01 Oct 2020 02:34:38 -0000`
