@@ -1,0 +1,25 @@
+From efb95fe17b5ade7dadacfb130f6b6e412a3a4b5c Mon Sep 17 00:00:00 2001
+From: "Marco A. Gutierrez" <marco@openrobotics.org>
+Date: Fri, 18 Dec 2020 14:29:37 +0800
+Subject: [PATCH] removing tag fcl as it has no match on rosdep
+
+Signed-off-by: Marco A. Gutierrez <marco@openrobotics.org>
+---
+ package.xml | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/package.xml b/package.xml
+index 935b29e..ddee51d 100644
+--- a/package.xml
++++ b/package.xml
+@@ -13,7 +13,6 @@
+ 
+   <build_depend>libccd-dev</build_depend>
+   <build_depend>libfcl-dev</build_depend>
+-  <build_depend>fcl</build_depend>
+ 
+   <test_depend>ament_cmake_catch2</test_depend>
+   <test_depend>rmf_cmake_uncrustify</test_depend>
+-- 
+2.25.1
+
