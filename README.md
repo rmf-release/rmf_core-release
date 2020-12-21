@@ -1,3 +1,40 @@
+## rmf_core (rolling) - 1.9999.0-6
+
+The packages in the `rmf_core` repository were released into the `rolling` distro by running `/usr/local/bin/bloom-release --rosdistro rolling --track rolling rmf_core` on `Mon, 21 Dec 2020 08:56:00 -0000`
+
+These packages were released:
+- `ament_cmake_catch2`
+- `rmf_cmake_uncrustify`
+- `rmf_dispenser_msgs`
+- `rmf_door_msgs`
+- `rmf_fleet_adapter`
+- `rmf_fleet_msgs`
+- `rmf_ingestor_msgs`
+- `rmf_lift_msgs`
+- `rmf_task_msgs`
+- `rmf_traffic`
+- `rmf_traffic_msgs`
+- `rmf_traffic_ros2`
+- `rmf_utils`
+- `rmf_workcell_msgs`
+
+Version of package(s) in repository `rmf_core`:
+
+- upstream repository: https://github.com/osrf/rmf_core.git
+- release repository: https://github.com/rmf-release/rmf_core-release.git
+- rosdistro version: `1.9999.0-5`
+- old version: `1.9999.0-5`
+- new version: `1.9999.0-6`
+
+Versions of tools used:
+
+- bloom version: `0.10.0`
+- catkin_pkg version: `0.4.23`
+- rosdep version: `0.19.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## traffic_editor (rolling) - 1.9999.0-4
 
 The packages in the `traffic_editor` repository were released into the `rolling` distro by running `/usr/local/bin/bloom-release --rosdistro rolling --track rolling traffic_editor` on `Fri, 18 Dec 2020 06:26:27 -0000`
