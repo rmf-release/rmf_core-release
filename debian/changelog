@@ -1,0 +1,14 @@
+ros-foxy-rmf-traffic-msgs (1.2.0-1focal) focal; urgency=high
+
+  * Adding blockade management messages: [#226](https://github.com/osrf/rmf_core/pull/226)
+
+ -- Grey <grey@openrobotics.org>  Mon, 04 Jan 2021 16:00:00 -0000
+
+ros-foxy-rmf-traffic-msgs (1.0.0-1focal) focal; urgency=high
+
+  * Messages for transmitting rmf_traffic API data structures over ROS2
+  * Contributors: Aaron Chong, Grey, Marco A. Gutiérrez, Morgan Quigley, Yadu, koonpeng
+
+ -- Grey <grey@openrobotics.org>  Mon, 22 Jun 2020 16:00:00 -0000
+
+
