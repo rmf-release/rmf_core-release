@@ -2,15 +2,15 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>rmf_fleet_adapter</name>
-  <version>1.9999.0</version>
+  <version>1.2.0</version>
   <description>Fleet Adapter package for RMF fleets.</description>
   <maintainer email="grey@openrobotics.org">Grey</maintainer>
   <maintainer email="aaron@openrobotics.org">Aaron</maintainer>
   <license>Apache License 2.0</license>
 
-  <buildtool_depend>ament_cmake_rolling</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>rclcpp_rolling</depend>
+  <depend>rclcpp</depend>
   <depend>rmf_utils</depend>
   <depend>rmf_door_msgs</depend>
   <depend>rmf_ingestor_msgs</depend>
