@@ -36,6 +36,10 @@ public:
 
   rmf_utils::optional<std::size_t> graph_index;
 
+  std::size_t itinerary_index;
+
+  std::size_t trajectory_index;
+
   Graph::Lane::EventPtr event;
 
   template<typename... Args>
@@ -47,7 +51,6 @@ public:
 
     return wp;
   }
-
 };
 
 //==============================================================================
@@ -55,18 +58,18 @@ class Planner::Result::Implementation
 {
 public:
 
-  rmf_traffic::internal::planning::CacheManager cache_mgr;
-  rmf_traffic::internal::planning::State state;
-  rmf_utils::optional<Plan> plan;
+  planning::InterfacePtr interface;
+  planning::State state;
+  std::optional<Plan> plan;
 
   static Result generate(
-    rmf_traffic::internal::planning::CacheManager cache_mgr,
+    planning::InterfacePtr interface,
     const std::vector<Planner::Start>& starts,
     Planner::Goal goal,
     Planner::Options options);
 
   static Result setup(
-    rmf_traffic::internal::planning::CacheManager cache_mgr,
+    planning::InterfacePtr interface,
     const std::vector<Planner::Start>& starts,
     Planner::Goal goal,
     Planner::Options options);
