@@ -24,6 +24,7 @@
 #include <rmf_traffic/schedule/Database.hpp>
 #include <rmf_traffic/schedule/Negotiation.hpp>
 #include <rmf_traffic/schedule/Participant.hpp>
+#include <rmf_traffic/schedule/StubbornNegotiator.hpp>
 
 //==============================================================================
 void print_proposal(
@@ -204,59 +205,111 @@ SCENARIO("Test Plan Negotiation Between Two Participants")
             nullptr, nullptr, rmf_utils::nullopt, rmf_utils::nullopt, wait_time)
     };
 
-    rmf_traffic::agv::SimpleNegotiator negotiator_2{
-      plan_2->get_start(),
-      plan_2.get_goal(),
-      configuration,
-      rmf_traffic::agv::SimpleNegotiator::Options(
-            nullptr, nullptr, rmf_utils::nullopt, rmf_utils::nullopt, wait_time)
-    };
-
-    auto next_table = negotiation->table(p1.id(), {});
-    negotiator_1.respond(
-      next_table->viewer(),
-      rmf_traffic::schedule::SimpleResponder::make(next_table));
-
-    REQUIRE(negotiation->table(p2.id(), {p1.id()}));
-
-    next_table = negotiation->table(p2.id(), {});
-    negotiator_2.respond(
-      next_table->viewer(),
-      rmf_traffic::schedule::SimpleResponder::make(next_table));
-
-    REQUIRE(negotiation->table(p1.id(), {p2.id()}));
-
-    next_table = negotiation->table(p1.id(), {p2.id()});
-    negotiator_1.respond(
-      next_table->viewer(),
-      rmf_traffic::schedule::SimpleResponder::make(next_table));
-
-    CHECK(negotiation->ready());
-
-    next_table = negotiation->table(p2.id(), {p1.id()});
-    negotiator_2.respond(
-      next_table->viewer(),
-      rmf_traffic::schedule::SimpleResponder::make(next_table));
-
-    CHECK(negotiation->complete());
-
-    auto proposals = negotiation->evaluate(
-      rmf_traffic::schedule::QuickestFinishEvaluator())->proposal();
-    REQUIRE(proposals.size() == 2);
-
-    const auto& proposal_1 = proposals.at(0);
-    const auto& proposal_2 = proposals.at(1);
-    for (const auto& r1 : proposal_1.itinerary)
+    GIVEN("Negotiator #2 is a SimpleNegotiator")
     {
-      for (const auto& r2 : proposal_2.itinerary)
+      rmf_traffic::agv::SimpleNegotiator negotiator_2{
+        plan_2->get_start(),
+        plan_2.get_goal(),
+        configuration,
+        rmf_traffic::agv::SimpleNegotiator::Options(
+              nullptr, nullptr, rmf_utils::nullopt, rmf_utils::nullopt, wait_time)
+      };
+
+      auto next_table = negotiation->table(p1.id(), {});
+      negotiator_1.respond(
+        next_table->viewer(),
+        rmf_traffic::schedule::SimpleResponder::make(next_table));
+
+      REQUIRE(negotiation->table(p2.id(), {p1.id()}));
+
+      next_table = negotiation->table(p2.id(), {});
+      negotiator_2.respond(
+        next_table->viewer(),
+        rmf_traffic::schedule::SimpleResponder::make(next_table));
+
+      REQUIRE(negotiation->table(p1.id(), {p2.id()}));
+
+      next_table = negotiation->table(p1.id(), {p2.id()});
+      negotiator_1.respond(
+        next_table->viewer(),
+        rmf_traffic::schedule::SimpleResponder::make(next_table));
+
+      CHECK(negotiation->ready());
+
+      next_table = negotiation->table(p2.id(), {p1.id()});
+      negotiator_2.respond(
+        next_table->viewer(),
+        rmf_traffic::schedule::SimpleResponder::make(next_table));
+
+      CHECK(negotiation->complete());
+
+      auto proposals = negotiation->evaluate(
+        rmf_traffic::schedule::QuickestFinishEvaluator())->proposal();
+      REQUIRE(proposals.size() == 2);
+
+      const auto& proposal_1 = proposals.at(0);
+      const auto& proposal_2 = proposals.at(1);
+      for (const auto& r1 : proposal_1.itinerary)
       {
-        CHECK_FALSE(rmf_traffic::DetectConflict::between(
-            profile, r1->trajectory(),
-            profile, r2->trajectory()));
+        for (const auto& r2 : proposal_2.itinerary)
+        {
+          CHECK_FALSE(rmf_traffic::DetectConflict::between(
+              profile, r1->trajectory(),
+              profile, r2->trajectory()));
+        }
       }
+
+      //print_proposal(*proposals);
     }
 
-//    print_proposal(*proposals);
+    GIVEN("Negotiator #2 is a StubbornNegotiator")
+    {
+      rmf_traffic::schedule::StubbornNegotiator negotiator_2{ p2 };
+
+      auto next_table = negotiation->table(p1.id(), {});
+      negotiator_1.respond(
+        next_table->viewer(),
+        rmf_traffic::schedule::SimpleResponder::make(next_table));
+
+      REQUIRE(negotiation->table(p2.id(), {p1.id()}));
+
+      next_table = negotiation->table(p2.id(), {});
+      negotiator_2.respond(
+        next_table->viewer(),
+        rmf_traffic::schedule::SimpleResponder::make(next_table));
+
+      REQUIRE(negotiation->table(p1.id(), {p2.id()}));
+
+      next_table = negotiation->table(p1.id(), {p2.id()});
+      negotiator_1.respond(
+        next_table->viewer(),
+        rmf_traffic::schedule::SimpleResponder::make(next_table));
+
+      CHECK(negotiation->ready());
+
+      next_table = negotiation->table(p2.id(), {p1.id()});
+      // there should be a rejection of the proposed itinerary
+      negotiator_2.respond(
+        next_table->viewer(),
+        rmf_traffic::schedule::SimpleResponder::make(next_table));
+
+      // at this point, the negotiation is incomplete
+      CHECK_FALSE(negotiation->complete());
+
+      next_table = negotiation->table(p1.id(), {});
+      negotiator_1.respond(
+        next_table->viewer(),
+        rmf_traffic::schedule::SimpleResponder::make(next_table));
+
+      CHECK_FALSE(negotiation->complete());
+
+      next_table = negotiation->table(p2.id(), {p1.id()});
+      negotiator_2.respond(
+        next_table->viewer(),
+        rmf_traffic::schedule::SimpleResponder::make(next_table));
+
+      CHECK(negotiation->complete());
+    }
   }
 
   WHEN("Participants Head-to-Head")
@@ -1660,7 +1713,7 @@ SCENARIO("A single lane with a alternate one way path")
 
       THEN("Valid Proposal is found")
       {
-        auto proposal = NegotiationRoom(database, intentions, 4.0).solve();
+        auto proposal = NegotiationRoom(database, intentions, 1.5, 60).solve();
         REQUIRE(proposal);
 
         auto p0_itinerary =
@@ -1705,7 +1758,7 @@ SCENARIO("A single lane with a alternate one way path")
 
       THEN("Valid Proposal is found")
       {
-        auto proposal = NegotiationRoom(database, intentions, 4.0).solve();
+        auto proposal = NegotiationRoom(database, intentions, 1.5, 40).solve();
         REQUIRE(proposal);
 
         auto p0_itinerary = get_participant_itinerary(*proposal, p0.id()).value();
@@ -2582,7 +2635,7 @@ SCENARIO("fan-in-fan-out bottleneck")
       // We don't run this test in debug mode because it takes a long time
       THEN("Valid Proposal is found")
       {
-        auto proposal = NegotiationRoom(database, intentions, 2.3)/*.print()*/.solve();
+        auto proposal = NegotiationRoom(database, intentions)/*.print()*/.solve();
         REQUIRE(proposal);
 
         auto p0_itinerary =
@@ -2722,7 +2775,8 @@ SCENARIO("Fully connected graph of 10 vertices")
         // The AGV planner assumes that waypoints are connected with simple
         // straight lines. Since all waypoints are colinear, it is impossible
         // for two vehicles to cross over each other.
-        auto proposal = NegotiationRoom(database, intentions, 1.1).solve();
+        auto proposal = NegotiationRoom(
+              database, intentions, 1.1, std::nullopt).solve();
         CHECK_FALSE(proposal);
       }
     }
