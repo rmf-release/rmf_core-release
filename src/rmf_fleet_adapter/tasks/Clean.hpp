@@ -15,26 +15,30 @@
  *
 */
 
-#ifndef SRC__RMF_FLEET_ADAPTER__TASKS__LOOP_HPP
-#define SRC__RMF_FLEET_ADAPTER__TASKS__LOOP_HPP
+#ifndef SRC__RMF_FLEET_ADAPTER__TASKS__CLEAN_HPP
+#define SRC__RMF_FLEET_ADAPTER__TASKS__CLEAN_HPP
 
 #include "../Task.hpp"
 #include "../agv/RobotContext.hpp"
 
-#include <rmf_task/requests/Loop.hpp>
+#include <rmf_traffic/agv/Planner.hpp>
+#include <rmf_traffic/Time.hpp>
+
+#include <rmf_task/agv/State.hpp>
+#include <rmf_task/requests/Clean.hpp>
 
 namespace rmf_fleet_adapter {
 namespace tasks {
 
 //==============================================================================
-std::shared_ptr<Task> make_loop(
-    const rmf_task::requests::ConstLoopRequestPtr request,
+std::shared_ptr<Task> make_clean(
+    const rmf_task::requests::ConstCleanRequestPtr request,
     const agv::RobotContextPtr& context,
-    const rmf_traffic::agv::Plan::Start start,
+    const rmf_traffic::agv::Plan::Start clean_start,
     const rmf_traffic::Time deployment_time,
     const rmf_task::agv::State finish_state);
 
 } // namespace tasks
 } // namespace rmf_fleet_adapter
 
-#endif // SRC__RMF_FLEET_ADAPTER__TASKS__LOOP_HPP
+#endif // SRC__RMF_FLEET_ADAPTER__TASKS__CLEAN_HPP

@@ -15,44 +15,29 @@
  *
 */
 
-#include "Loop.hpp"
-
 #include "../phases/GoToPlace.hpp"
+
+#include "Clean.hpp"
 
 namespace rmf_fleet_adapter {
 namespace tasks {
 
 //==============================================================================
-std::shared_ptr<Task> make_loop(
-    const rmf_task::requests::ConstLoopRequestPtr request,
+std::shared_ptr<Task> make_clean(
+    const rmf_task::requests::ConstCleanRequestPtr request,
     const agv::RobotContextPtr& context,
-    const rmf_traffic::agv::Plan::Start start,
+    const rmf_traffic::agv::Plan::Start clean_start,
     const rmf_traffic::Time deployment_time,
     const rmf_task::agv::State finish_state)
 {
-
+  rmf_traffic::agv::Planner::Goal clean_goal{request->start_waypoint()};
+  auto end_start = request->location_after_clean(clean_start);
+  rmf_traffic::agv::Planner::Goal end_goal{request->end_waypoint()};
   Task::PendingPhases phases;
-  const auto loop_start = request->loop_start(start);
-  const auto loop_end = request->loop_end(loop_start);
-
   phases.push_back(
-    phases::GoToPlace::make(
-      context, std::move(start), request->start_waypoint()));
-
+        phases::GoToPlace::make(context, std::move(clean_start), clean_goal));
   phases.push_back(
-    phases::GoToPlace::make(
-      context, loop_start, request->finish_waypoint()));
-
-  for (std::size_t i = 1; i < request->num_loops(); ++i)
-  {
-    phases.push_back(
-      phases::GoToPlace::make(
-        context, loop_end, request->start_waypoint()));
-
-    phases.push_back(
-      phases::GoToPlace::make(
-        context, loop_start, request->finish_waypoint()));
-  }
+        phases::GoToPlace::make(context, std::move(end_start), end_goal));
 
   return Task::make(
     request->id(),
@@ -63,5 +48,5 @@ std::shared_ptr<Task> make_loop(
     request);
 }
 
-} // namespace tasks
+} // namespace task
 } // namespace rmf_fleet_adapter
