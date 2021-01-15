@@ -15,26 +15,39 @@
  *
 */
 
-#ifndef SRC__RMF_FLEET_ADAPTER__TASKS__LOOP_HPP
-#define SRC__RMF_FLEET_ADAPTER__TASKS__LOOP_HPP
+#include "../phases/GoToPlace.hpp"
 
-#include "../Task.hpp"
-#include "../agv/RobotContext.hpp"
+#include "../phases/WaitForCharge.hpp"
 
-#include <rmf_task/requests/Loop.hpp>
+#include "ChargeBattery.hpp"
 
 namespace rmf_fleet_adapter {
 namespace tasks {
 
 //==============================================================================
-std::shared_ptr<Task> make_loop(
-    const rmf_task::requests::ConstLoopRequestPtr request,
+std::shared_ptr<Task> make_charge_battery(
+    const rmf_task::requests::ConstChargeBatteryRequestPtr request,
     const agv::RobotContextPtr& context,
     const rmf_traffic::agv::Plan::Start start,
     const rmf_traffic::Time deployment_time,
-    const rmf_task::agv::State finish_state);
+    const rmf_task::agv::State finish_state)
+{
+  rmf_traffic::agv::Planner::Goal goal{finish_state.charging_waypoint()};
 
-} // namespace tasks
+  Task::PendingPhases phases;
+  phases.push_back(
+    phases::GoToPlace::make(context, std::move(start), goal));
+  phases.push_back(
+    phases::WaitForCharge::make(context, request->battery_system(), 0.99));
+
+  return Task::make(
+    request->id(),
+    std::move(phases),
+    context->worker(),
+    deployment_time,
+    finish_state,
+    request);
+}
+
+} // namespace task
 } // namespace rmf_fleet_adapter
-
-#endif // SRC__RMF_FLEET_ADAPTER__TASKS__LOOP_HPP
